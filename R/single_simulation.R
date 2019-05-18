@@ -1,12 +1,12 @@
 ##==============================================================================
-## analysis.R
+## single_simulation.R
 ##
 ## Questions? Tony Wong (anthony.e.wong@colorado.edu)
 ##==============================================================================
 
 rm(list=ls())
 
-setwd('~/codes/co2multimodal')
+setwd('~/codes/co2multimodal/R')
 library(sn)
 
 ##==============================================================================
@@ -16,6 +16,11 @@ dist <- 'sn'
 DO_SAMPLE_TVQ <- TRUE
 USE_LENTON_FSR <- FALSE
 USE_ROYER_FSR <- TRUE
+
+# upper bound from Royer et al 2014 (should be yielding a failed run anyhow)
+# lower bound relaxed in light of additional proxy data
+upper_bound_co2 <- 50000
+lower_bound_co2 <- 0
 
 data_to_assim <- cbind( c("paleosols" , TRUE),
                         c("alkenones" , TRUE),
@@ -27,10 +32,9 @@ filename.calibinput <- '../input_data/GEOCARB_input_summaries_calib_unc.csv'
 
 source('GEOCARB-2014_parameterSetup_tvq.R')
 source('model_forMCMC_tvq.R')
-#source('run_geocarbF.R')
 source('run_geocarbF_unc.R') # version with extra `var` uncertainty statistical parameter
 source('GEOCARB_fit_likelihood_surface.R')
-#source('likelihood_surface_quantiles.R')
+source('GEOCARB-2014_calib_likelihood_unc.R')
 
 # Get model parameter prior distribution bounds
 names <- as.character(input$parameter)
@@ -56,14 +60,71 @@ for (i in 1:length(parnames_calib)) {
 }
 
 
+##==============================================================================
+## Example: Run a single simulation
+
+# par_calib0 is the central estimates from prior distributions. standard
+# parameter values, but not calibrated or anything.
+
+model_out <- model_forMCMC(par_calib=par_calib0,
+                           par_fixed=par_fixed0,
+                           parnames_calib=parnames_calib,
+                           parnames_fixed=parnames_fixed,
+                           parnames_time=parnames_time,
+                           age=age,
+                           ageN=ageN,
+                           ind_const_calib=ind_const_calib,
+                           ind_time_calib=ind_time_calib,
+                           ind_const_fixed=ind_const_fixed,
+                           ind_time_fixed=ind_time_fixed,
+                           ind_expected_time=ind_expected_time,
+                           ind_expected_const=ind_expected_const,
+                           iteration_threshold=iteration_threshold,
+                           do_sample_tvq=DO_SAMPLE_TVQ,
+                           par_time_center=par_time_center,
+                           par_time_stdev=par_time_stdev)
 
 
 ##==============================================================================
-## Draw from Latin hypercube
+## Example: Evaluate the log-posterior for that simulation.
+
+# Note that this is using ALL 58 of the time-steps. We will want to only use
+# the t = 240 Mya (million years ago) time slice.
+
+# The log_post(...) function is defined in the GEOCARB-2014_calib_likelihood_unc.R routine
+
+lpost_out <- log_post(par_calib=par_calib0,
+                      par_fixed=par_fixed0,
+                      parnames_calib=parnames_calib,
+                      parnames_fixed=parnames_fixed,
+                      parnames_time=parnames_time,
+                      age=age,
+                      ageN=ageN,
+                      ind_const_calib=ind_const_calib,
+                      ind_time_calib=ind_time_calib,
+                      ind_const_fixed=ind_const_fixed,
+                      ind_time_fixed=ind_time_fixed,
+                      input=input,
+                      time_arrays=time_arrays,
+                      bounds_calib=bounds_calib,
+                      data_calib=data_calib,
+                      ind_mod2obs=ind_mod2obs,
+                      ind_expected_time=ind_expected_time,
+                      ind_expected_const=ind_expected_const,
+                      iteration_threshold=iteration_threshold,
+                      n_shard=1,
+                      loglikelihood_smoothed=loglikelihood_smoothed,
+                      likelihood_fit=likelihood_fit,
+                      idx_data=idx_data,
+                      do_sample_tvq=DO_SAMPLE_TVQ,
+                      par_time_center=par_time_center,
+                      par_time_stdev=par_time_stdev)
 
 
 
 
+
+if(FALSE) {
 
 
 
@@ -377,6 +438,13 @@ deltaT2X_density_old <- density(parameters_old[,ics], from=0, to=10)
 
 save.image(file='../output/analysis.RData')
 ##======================================
+
+
+
+
+
+}
+
 
 
 
