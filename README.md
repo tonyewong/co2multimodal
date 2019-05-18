@@ -19,9 +19,9 @@ likelihood function.
   * GEOCARB-2014_parameterSetup_tvq.R -- set up the model parameters and their prior distributions
   * GEOCARB_fit_likelihood_surface.R -- fit independent kernel density estimates for the likelihood function at each time step, based on samples from the skew-normal prior distributions
   * GEOCARB-2014_calib_likelihood_unc.R -- contains functions for the prior probability distribution function, the likelihood function and the posterior probability distribution function
-  * run_geocarbF_unc.R
-  * model_forMCMC_tvq.R
-  * single_simulation.R
+  * model_forMCMC_tvq.R -- shape the input model parameters into the matrices that the Fortran model expects
+  * run_geocarbF_unc.R -- wrapper function to call the Fortran model from R
+  * single_simulation.R -- driver script to set up and run a single simulation of the model
 
 ## Quick-start
 
