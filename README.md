@@ -27,7 +27,19 @@ likelihood function.
 
 To run a single simulation...
 
-todo...
+1. Clone this Github repository
+```
+git clone https://github.com/tonyewong/co2multimodal.git
+```
+2. Open a terminal window, navigate to the `fortran` directory and compile the Fortran model.
+  * You may need to install a Fortran compiler if you are working on a Windows machine (most Unix-based will have one)
+  * You can check if you have a Fortran compiler using (for example) `which gfortran` (Unix-based) or `where gfortran` (Windows)
+  * To compile using the Makefile, open it in any text editor and modify the line below to reflect the location on your system of your Fortran compiler:
+```
+F90 = /usr/local/bin/gfortran
+```
+3. Navigate to the R directory within this repository and open a Jupyter notebook, or an R(Studio) instance.
+4. Run (either as a script, or interactively or pasting in a Jupyter notebook) the `single_simulation.R` script.
 
 ---
 
