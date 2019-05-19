@@ -1,5 +1,5 @@
 ##==============================================================================
-## run_geocarbF_unc.R
+## run_geocarbF.R
 ##
 ## R wrapper script to call the fortran version of the geocarbsulf model.
 ## The most important thing this does is unravel the various inputs into the
@@ -26,9 +26,9 @@
 # load fortran subroutine (# to check if library is loaded is.loaded("run_geocarb") )
 # dyn.load("../fortran/run_geocarb.so")
 if(.Platform$OS.type == "unix") {
-    dyn.load("../fortran/run_geocarb_unc.so")
+    dyn.load("../fortran/run_geocarb.so")
 } else {
-    dyn.load("../fortran/run_geocarb_unc")
+    dyn.load("../fortran/run_geocarb")
 }
 
 run_geocarbF <- function(Matrix_56,
@@ -46,7 +46,7 @@ run_geocarbF <- function(Matrix_56,
   Matrix_56_ordered <- Matrix_56[ind_expected_const,]
 
   # fortran version
-  f.output <- .Fortran('run_geocarb_unc',
+  f.output <- .Fortran('run_geocarb',
                           Matrix_56 = as.double(Matrix_56_ordered),
                           Matrix_12 = as.double(Matrix_12_ordered),
                           age       = as.double(age),
@@ -55,8 +55,6 @@ run_geocarbF <- function(Matrix_56,
                           CO2_out   = as.double(rep(-999.99, ageN)),
                           O2_out    = as.double(rep(-999.99, ageN))
                           )
-  # r version
-  ###f.output <- GEOCARBSULFvolc_forMCMC(Matrix_56_ordered, Matrix_12_ordered, age, ageN)
 
   return(f.output)
 }

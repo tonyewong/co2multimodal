@@ -127,7 +127,7 @@ log_like <- function(
 
   # run the model
   if (do_sample_tvq) {
-    model_out <- model_forMCMC(par_calib=par_calib,
+    model_out <- geocarb(par_calib=par_calib,
                                par_fixed=par_fixed,
                                parnames_calib=parnames_calib,
                                parnames_fixed=parnames_fixed,
@@ -145,7 +145,7 @@ log_like <- function(
                                par_time_center=par_time_center,
                                par_time_stdev=par_time_stdev)[,'co2']
   } else {
-    model_out <- model_forMCMC(par_calib=par_calib,
+    model_out <- geocarb(par_calib=par_calib,
                                par_fixed=par_fixed,
                                parnames_calib=parnames_calib,
                                parnames_fixed=parnames_fixed,
@@ -189,27 +189,6 @@ log_like <- function(
     if(is.na(llike)) {llike <- -Inf}
   }
   return(llike)
-}
-##==============================================================================
-
-
-##==============================================================================
-## Negative posterior
-##===================
-neg_log_post <- function(par_calib, par_fixed, parnames_calib, parnames_fixed, parnames_time,
-                         age, ageN, ind_const_calib, ind_time_calib, ind_const_fixed,
-                         ind_time_fixed, input, time_arrays, bounds_calib, data_calib,
-                         ind_mod2obs, ind_expected_time, ind_expected_const, iteration_threshold){
-
-  lpost <- log_post(par_calib=par_calib, par_fixed=par_fixed, parnames_calib=parnames_calib,
-                parnames_fixed=parnames_fixed, parnames_time=parnames_time, age=age, ageN=ageN,
-                ind_const_calib=ind_const_calib, ind_time_calib=ind_time_calib,
-                ind_const_fixed=ind_const_fixed, ind_time_fixed=ind_time_fixed,
-                input=input, time_arrays=time_arrays, bounds_calib=bounds_calib,
-                data_calib=data_calib, ind_mod2obs=ind_mod2obs,
-                ind_expected_time=ind_expected_time, ind_expected_const=ind_expected_const,
-                iteration_threshold=iteration_threshold)
-  return(-lpost)
 }
 ##==============================================================================
 

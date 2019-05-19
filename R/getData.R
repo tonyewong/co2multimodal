@@ -1,5 +1,5 @@
 ##==============================================================================
-## GEOCARB-2014_getData.R
+## getData.R
 ##
 ## Read CO2 proxy data, including skew-normal fits for age/amount.
 ##

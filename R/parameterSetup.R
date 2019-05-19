@@ -1,5 +1,5 @@
 ##==============================================================================
-## GEOCARB-2014_parameterSetup_tvq.R
+## parameterSetup.R
 ##
 ## set up specific to sampling the time-varying parameters by CDF value
 ##

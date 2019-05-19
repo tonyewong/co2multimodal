@@ -1,5 +1,5 @@
 ##==============================================================================
-## model_forMCMC_tvq.R
+## geocarb.R
 ##
 ## Input:
 ##  par_calib        vector of input parameters. first N_const_calib are the
@@ -28,7 +28,7 @@
 ##  o2               O2 concentration, ppmv
 ##==============================================================================
 
-model_forMCMC <- function(par_calib, par_fixed, parnames_calib, parnames_fixed, parnames_time,
+geocarb <- function(par_calib, par_fixed, parnames_calib, parnames_fixed, parnames_time,
                           age, ageN, ind_const_calib, ind_time_calib,
                           ind_const_fixed, ind_time_fixed,
                           ind_expected_time, ind_expected_const,

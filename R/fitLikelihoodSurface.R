@@ -1,5 +1,5 @@
 ##==============================================================================
-## GEOCARB_fit_likelihood_surface.R
+## fitLikelihoodSurface.R
 ##
 ## Read previously fit skew-normal distributions for each data point, and sample
 ## from all of them. Then, fit KDEs to each time step's data points, and build a
@@ -23,7 +23,7 @@
 ##================================
 
 if(DO_SAMPLE_TVQ) {
-  model_out <- model_forMCMC(par_calib=par_calib0,
+  model_out <- geocarb(par_calib=par_calib0,
                              par_fixed=par_fixed0,
                              parnames_calib=parnames_calib,
                              parnames_fixed=parnames_fixed,
@@ -41,7 +41,7 @@ if(DO_SAMPLE_TVQ) {
                              par_time_center=par_time_center,
                              par_time_stdev=par_time_stdev)
 } else {
-  model_out <- model_forMCMC(par_calib=par_calib0,
+  model_out <- geocarb(par_calib=par_calib0,
                              par_fixed=par_fixed0,
                              parnames_calib=parnames_calib,
                              parnames_fixed=parnames_fixed,
@@ -85,7 +85,7 @@ data_to_assim <- cbind( c("paleosols" , TRUE),
                         c("boron"     , TRUE),
                         c("liverworts", TRUE) )
 
-source('GEOCARB-2014_getData.R')
+source('getData.R')
 
 ind_data    <- which(data_to_assim[2,]==TRUE)
 n_data_sets <- length(ind_data)

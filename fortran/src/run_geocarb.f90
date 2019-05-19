@@ -1,13 +1,13 @@
 !================================================================================
 !================================================================================
 ! run_geocarb: Fortran 90 file for GEOCARBSULFvolc model
-! This file is written by Ying Cui (ying.cui@dartmouth.edu) and Tony Wong (twong@psu.edu)
+! This file is written by Ying Cui (ying.cui@dartmouth.edu) and Tony Wong (anthony.e.wong@colorado.edu)
 !================================================================================
 ! This file is part of MCMC calibration for GEOCARBSULFvolc.
 !================================================================================
 
 !---------------------------------------------------------------------------------
-subroutine run_geocarb_unc(Matrix_56, Matrix_12, age, ageN, iteration_threshold, CO2_out, O2_out)
+subroutine run_geocarb(Matrix_56, Matrix_12, age, ageN, iteration_threshold, CO2_out, O2_out)
 !  ===============================================================================
 ! | Inputs:
 ! |    Variables:
@@ -566,4 +566,4 @@ Rca = Rca_570
 
 RETURN
 
-END SUBROUTINE run_geocarb_unc
+END SUBROUTINE run_geocarb
